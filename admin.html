@@ -1,11 +1,78 @@
-<!doctype html><html><head>
-<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-<script src="./config.js"></script>
-<link rel="stylesheet" href="./shared.css">
-</head><body>
-<h2>Admin</h2>
-<input id="code" placeholder="Admin code">
-<button id="authBtn">Unlock</button>
-<button id="resetBtn">Reset</button>
-<script src="./admin.js"></script>
-</body></html>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="./shared.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <b>Admin Dashboard</b>
+        <span>Set question, mark answers, reveal when ready.</span>
+      </div>
+      <span class="badge dot" id="connBadge">Connecting…</span>
+    </div>
+
+    <div class="card" id="authCard">
+      <p class="bigQ" style="margin-bottom:10px;">Enter Admin Code</p>
+      <div class="row">
+        <input id="code" placeholder="secret code" />
+        <button id="authBtn" class="ok">Unlock</button>
+        <button class="secondary" onclick="location.href='./index.html'">Back</button>
+      </div>
+      <p class="small" id="authMsg"></p>
+    </div>
+
+    <div class="card" id="adminCard" style="display:none;">
+      <div class="row" style="justify-content:space-between;align-items:center;">
+        <div>
+          <div class="small">Round</div>
+          <div style="font-size:22px;font-weight:900" id="roundId">—</div>
+        </div>
+        <div class="row">
+          <button id="revealAnswerBtn" class="secondary">Reveal Answer (Public)</button>
+          <button id="revealResultsBtn" class="secondary">Reveal Correct/Wrong (Public)</button>
+          <button id="resetBtn" class="danger">Reset for Next Question</button>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="row">
+        <div style="flex:1;min-width:280px;">
+          <label class="small">Question (shown to all)</label>
+          <textarea id="questionText" placeholder="Type the question you ask physically…"></textarea>
+        </div>
+        <div style="flex:1;min-width:280px;">
+          <label class="small">Correct Answer (hidden until you reveal)</label>
+          <textarea id="correctAnswer" placeholder="Type the correct answer you will reveal later…"></textarea>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <button id="saveQBtn" class="ok">Save Question + Answer</button>
+        <span class="small" id="saveMsg"></span>
+      </div>
+
+      <hr />
+
+      <div class="row" style="justify-content:space-between;align-items:center;">
+        <div>
+          <b>Groups</b>
+          <div class="small">See submitted answers instantly and mark them.</div>
+        </div>
+        <div class="badge dot" id="statsBadge">—</div>
+      </div>
+
+      <div id="groupsList"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="./config.js"></script>
+  <script src="./admin.js"></script>
+</body>
+</html>

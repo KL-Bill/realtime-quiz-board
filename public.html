@@ -1,9 +1,52 @@
-<!doctype html><html><head>
-<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-<script src="./config.js"></script>
-<link rel="stylesheet" href="./shared.css">
-</head><body>
-<h2>Public Display</h2>
-<pre id="out"></pre>
-<script src="./public.js"></script>
-</body></html>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Public Display</title>
+  <link rel="stylesheet" href="./shared.css" />
+</head>
+<body>
+  <div class="container projector">
+    <div class="topbar">
+      <div class="brand">
+        <b>Public Display</b>
+        <span>Realtime submitted + results (when revealed).</span>
+      </div>
+      <span class="badge dot" id="connBadge">Connecting…</span>
+    </div>
+
+    <div class="card">
+      <p class="bigQ" id="qText">Waiting for admin…</p>
+
+      <div class="answerBox" id="answerBox" style="display:none;">
+        <div class="small">Revealed answer:</div>
+        <div style="font-size:24px;font-weight:900" id="correctAnswer"></div>
+      </div>
+      <div class="small" style="margin-top:10px;">Open this on the projector tab.</div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between;align-items:center;">
+        <b>Groups</b>
+        <span class="small" id="hint">Submitted shows immediately. Correct/Wrong appears only when admin reveals.</span>
+      </div>
+      <div class="grid" id="grid" style="margin-top:12px;"></div>
+    </div>
+
+    <div class="card">
+      <b>Legend</b>
+      <div class="row" style="margin-top:10px;">
+        <span class="pill idle">Waiting</span>
+        <span class="pill submitted">Submitted</span>
+        <span class="pill correct">Correct</span>
+        <span class="pill wrong">Wrong</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="./config.js"></script>
+  <script src="./public.js"></script>
+</body>
+</html>

@@ -1,12 +1,66 @@
-<!doctype html><html><head>
-<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-<script src="./config.js"></script>
-<link rel="stylesheet" href="./shared.css">
-</head><body>
-<h2>Group Submit</h2>
-<input id="groupNum" placeholder="Group #">
-<button id="joinBtn">Enter</button>
-<textarea id="answer"></textarea>
-<button id="submitBtn">Submit</button>
-<script src="./group.js"></script>
-</body></html>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Group Submit</title>
+  <link rel="stylesheet" href="./shared.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <b>Group Answer Submit</b>
+        <span>One answer per round. Locked until Admin Reset.</span>
+      </div>
+      <span class="badge dot" id="connBadge">Connecting…</span>
+    </div>
+
+    <div class="card" id="step1">
+      <p class="bigQ" style="margin-bottom:10px;">What’s your group number?</p>
+      <div class="row">
+        <input id="groupNum" type="number" min="1" placeholder="e.g., 1" />
+        <button id="joinBtn" class="ok">Enter</button>
+        <button id="backBtn" class="secondary" onclick="location.href='./index.html'">Back</button>
+      </div>
+      <p class="small" id="joinMsg"></p>
+    </div>
+
+    <div class="card" id="step2" style="display:none;">
+      <div class="row" style="justify-content:space-between;align-items:center;">
+        <div>
+          <p class="bigQ" id="qText">Waiting for admin question…</p>
+          <div class="small">You are <b>Group <span id="gLabel"></span></b></div>
+        </div>
+        <span class="badge dot" id="statusBadge">Ready</span>
+      </div>
+
+      <hr />
+
+      <label class="small">Your answer</label>
+      <textarea id="answer"></textarea>
+
+      <div class="row" style="margin-top:10px;">
+        <button id="submitBtn" class="ok">Submit Answer</button>
+        <button id="clearBtn" class="secondary">Clear</button>
+      </div>
+
+      <p class="small" id="err"></p>
+
+      <div class="answerBox" id="revealArea" style="display:none;">
+        <div class="small">Revealed answer:</div>
+        <div style="font-size:18px;font-weight:800" id="revealedAnswer"></div>
+      </div>
+
+      <div class="answerBox" id="resultArea" style="display:none;">
+        <div class="small">Result:</div>
+        <div style="font-size:18px;font-weight:800" id="resultText"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="./config.js"></script>
+  <script src="./group.js"></script>
+</body>
+</html>

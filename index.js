@@ -1,21 +1,25 @@
 const entry = document.getElementById("entry");
 const goBtn = document.getElementById("goBtn");
-const clearBtn = document.getElementById("clearBtn");
 const msg = document.getElementById("msg");
+
+// Admin code: 232323
+// Public code: 123123
+const ADMIN_CODE = "232323";
+const PUBLIC_CODE = "123123";
 
 function route() {
   const v = (entry.value || "").trim();
 
   if (!v) {
-    msg.textContent = "Please enter a code or group number.";
+    msg.textContent = "Please enter a group number.";
     return;
   }
 
-  if (v === window.APP_CONFIG.ADMIN_CODE) {
+  if (v === ADMIN_CODE) {
     location.href = "./admin.html";
     return;
   }
-  if (v === window.APP_CONFIG.PUBLIC_CODE) {
+  if (v === PUBLIC_CODE) {
     location.href = "./public.html";
     return;
   }
@@ -27,15 +31,10 @@ function route() {
     return;
   }
 
-  msg.textContent = "Invalid entry. Use admin code, public code, or a group number.";
+  msg.textContent = "Invalid group number.";
 }
 
 goBtn.addEventListener("click", route);
 entry.addEventListener("keydown", (e) => {
   if (e.key === "Enter") route();
-});
-
-clearBtn.addEventListener("click", () => {
-  localStorage.removeItem("groupNumber");
-  msg.textContent = "Saved group cleared.";
 });

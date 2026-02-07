@@ -28,12 +28,12 @@ const resultText = document.getElementById("resultText");
 
 let myGroup = null;
 let lastRoundId = null;
+let lastSubmissionOpen = true;
 
 function setConn(ok) {
   connBadge.className = "badge dot " + (ok ? "ok" : "");
   connBadge.textContent = ok ? "Connected" : "Disconnected";
 }
-
 socket.on("connect", () => setConn(true));
 socket.on("disconnect", () => setConn(false));
 
@@ -55,11 +55,10 @@ joinBtn.addEventListener("click", () => {
   enterGroup(n);
 });
 
-// auto-fill from localStorage if set
+// auto fill from saved
 const saved = localStorage.getItem("groupNumber");
 if (saved && Number.isInteger(Number(saved))) {
   groupNum.value = saved;
-  // don't auto-enter until socket connects, but it’s okay to do it immediately
   enterGroup(Number(saved));
 }
 
@@ -80,7 +79,6 @@ socket.on("errorMsg", (msg) => {
 socket.on("state", (s) => {
   if (!myGroup) return;
 
-  // detect reset
   if (lastRoundId !== null && s.roundId !== lastRoundId) {
     answer.value = "";
     err.textContent = "";
@@ -94,10 +92,18 @@ socket.on("state", (s) => {
   const g = s.groups[String(myGroup)] || s.groups[myGroup];
   if (!g) return;
 
-  submitBtn.disabled = !!g.submitted;
-  answer.disabled = !!g.submitted;
+  // submission open/closed
+  const submissionOpen = !!s.submissionOpen;
+  lastSubmissionOpen = submissionOpen;
 
-  if (g.submitted) {
+  // lock after submit OR if submission ended
+  submitBtn.disabled = !!g.submitted || !submissionOpen;
+  answer.disabled = !!g.submitted || !submissionOpen;
+
+  if (!submissionOpen && !g.submitted) {
+    statusBadge.className = "badge dot bad";
+    statusBadge.textContent = "Closed";
+  } else if (g.submitted) {
     statusBadge.className = "badge dot warn";
     statusBadge.textContent = "Submitted";
   } else {

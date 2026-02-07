@@ -3,68 +3,80 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Admin Dashboard</title>
+  <title>Admin</title>
   <link rel="stylesheet" href="./shared.css" />
+  <style>
+    .tight .card{padding:14px}
+    .label{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .toggleRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .switch{display:flex;align-items:center;gap:10px}
+    .switch input{min-width:auto}
+  </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container tight">
     <div class="topbar">
       <div class="brand">
-        <b>Admin Dashboard</b>
-        <span>Set question, mark answers, reveal when ready.</span>
+        <b>Admin</b>
+        <span>Control question, submissions, and reveal.</span>
       </div>
       <span class="badge dot" id="connBadge">Connecting…</span>
     </div>
 
     <div class="card" id="authCard">
-      <p class="bigQ" style="margin-bottom:10px;">Enter Admin Code</p>
+      <div class="label">Admin Code</div>
       <div class="row">
-        <input id="code" placeholder="secret code" />
+        <input id="code" autocomplete="off" />
         <button id="authBtn" class="ok">Unlock</button>
         <button class="secondary" onclick="location.href='./index.html'">Back</button>
       </div>
-      <p class="small" id="authMsg"></p>
+      <div class="small" id="authMsg"></div>
     </div>
 
     <div class="card" id="adminCard" style="display:none;">
-      <div class="row" style="justify-content:space-between;align-items:center;">
-        <div>
-          <div class="small">Round</div>
-          <div style="font-size:22px;font-weight:900" id="roundId">—</div>
+      <div class="toggleRow" style="justify-content:space-between;">
+        <div class="switch">
+          <input type="checkbox" id="modeTimer" />
+          <label for="modeTimer" class="small">Timed mode</label>
+          <span class="small">(off = Rank mode)</span>
         </div>
+
         <div class="row">
-          <button id="revealAnswerBtn" class="secondary">Reveal Answer (Public)</button>
-          <button id="revealResultsBtn" class="secondary">Reveal Correct/Wrong (Public)</button>
-          <button id="resetBtn" class="danger">Reset for Next Question</button>
+          <button id="startBtn" class="ok">Start Countdown</button>
+          <button id="endBtn" class="danger">End Submission</button>
+          <button id="resetBtn" class="secondary">Reset</button>
         </div>
       </div>
 
-      <hr />
-
-      <div class="row">
+      <div class="row" style="margin-top:12px;align-items:flex-end;">
         <div style="flex:1;min-width:280px;">
-          <label class="small">Question (shown to all)</label>
-          <textarea id="questionText" placeholder="Type the question you ask physically…"></textarea>
+          <div class="label">Question</div>
+          <textarea id="questionText"></textarea>
         </div>
         <div style="flex:1;min-width:280px;">
-          <label class="small">Correct Answer (hidden until you reveal)</label>
-          <textarea id="correctAnswer" placeholder="Type the correct answer you will reveal later…"></textarea>
+          <div class="label">Correct Answer (hidden until reveal)</div>
+          <textarea id="correctAnswer"></textarea>
         </div>
       </div>
 
-      <div class="row" style="margin-top:10px;">
-        <button id="saveQBtn" class="ok">Save Question + Answer</button>
-        <span class="small" id="saveMsg"></span>
+      <div class="row" style="margin-top:10px;align-items:center;">
+        <button id="saveQBtn" class="ok">Save</button>
+        <button id="revealAnswerBtn" class="secondary">Reveal Answer</button>
+        <button id="revealResultsBtn" class="secondary">Reveal Correct/Wrong</button>
+
+        <div id="timerControls" style="margin-left:auto;display:flex;gap:10px;align-items:center;">
+          <div class="label" style="margin:0;">Seconds</div>
+          <input id="timerSec" type="number" min="5" style="width:140px;min-width:140px;" />
+        </div>
       </div>
+
+      <div class="small" id="saveMsg" style="margin-top:6px;"></div>
 
       <hr />
 
       <div class="row" style="justify-content:space-between;align-items:center;">
-        <div>
-          <b>Groups</b>
-          <div class="small">See submitted answers instantly and mark them.</div>
-        </div>
-        <div class="badge dot" id="statsBadge">—</div>
+        <b>Groups</b>
+        <span class="badge dot" id="statsBadge">—</span>
       </div>
 
       <div id="groupsList"></div>

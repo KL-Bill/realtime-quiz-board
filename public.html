@@ -5,43 +5,74 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Public Display</title>
   <link rel="stylesheet" href="./shared.css" />
+  <style>
+    /* Light mode overrides */
+    body {
+      background: #f6f7fb !important;
+      color: #0f172a !important;
+    }
+    .topbar, .card {
+      background: #ffffff !important;
+      border: 1px solid rgba(15,23,42,.10) !important;
+      backdrop-filter: none !important;
+    }
+    .brand span, .small { color: rgba(15,23,42,.65) !important; }
+    input, textarea {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid rgba(15,23,42,.12) !important;
+    }
+    .badge {
+      border: 1px solid rgba(15,23,42,.12) !important;
+      color: rgba(15,23,42,.70) !important;
+      background:#fff !important;
+    }
+    .badge.dot::before { background: #3b82f6 !important; }
+    .tile {
+      background: #ffffff !important;
+      border: 1px solid rgba(15,23,42,.10) !important;
+      box-shadow: 0 6px 18px rgba(15,23,42,.06);
+    }
+    .tile.submitted { background: rgba(245,158,11,.10) !important; border-color: rgba(245,158,11,.35) !important; }
+    .tile.correct { background: rgba(34,197,94,.10) !important; border-color: rgba(34,197,94,.35) !important; }
+    .tile.wrong { background: rgba(239,68,68,.10) !important; border-color: rgba(239,68,68,.35) !important; }
+    .sub { color: rgba(15,23,42,.55) !important; }
+    .pill { border: 1px solid rgba(15,23,42,.12) !important; color:#0f172a !important; background:#fff !important; }
+    .pill.submitted { background: rgba(245,158,11,.12) !important; }
+    .pill.correct { background: rgba(34,197,94,.12) !important; }
+    .pill.wrong { background: rgba(239,68,68,.12) !important; }
+    .pill.idle { background: rgba(59,130,246,.10) !important; }
+    .timer {
+      font-size: 34px; font-weight: 900; letter-spacing: 1px;
+    }
+  </style>
 </head>
 <body>
   <div class="container projector">
     <div class="topbar">
       <div class="brand">
         <b>Public Display</b>
-        <span>Realtime submitted + results (when revealed).</span>
+        <span id="modeLabel"></span>
       </div>
       <span class="badge dot" id="connBadge">Connecting…</span>
     </div>
 
     <div class="card">
-      <p class="bigQ" id="qText">Waiting for admin…</p>
-
-      <div class="answerBox" id="answerBox" style="display:none;">
-        <div class="small">Revealed answer:</div>
-        <div style="font-size:24px;font-weight:900" id="correctAnswer"></div>
+      <p class="bigQ" id="qText">Waiting…</p>
+      <div class="row" style="justify-content:space-between;align-items:center;margin-top:10px;">
+        <div class="answerBox" id="answerBox" style="display:none;flex:1;">
+          <div class="small">Answer</div>
+          <div style="font-size:22px;font-weight:900" id="correctAnswer"></div>
+        </div>
+        <div id="timerWrap" style="display:none;min-width:180px;text-align:right;">
+          <div class="small">Time</div>
+          <div class="timer" id="timer">00:00</div>
+        </div>
       </div>
-      <div class="small" style="margin-top:10px;">Open this on the projector tab.</div>
     </div>
 
     <div class="card">
-      <div class="row" style="justify-content:space-between;align-items:center;">
-        <b>Groups</b>
-        <span class="small" id="hint">Submitted shows immediately. Correct/Wrong appears only when admin reveals.</span>
-      </div>
-      <div class="grid" id="grid" style="margin-top:12px;"></div>
-    </div>
-
-    <div class="card">
-      <b>Legend</b>
-      <div class="row" style="margin-top:10px;">
-        <span class="pill idle">Waiting</span>
-        <span class="pill submitted">Submitted</span>
-        <span class="pill correct">Correct</span>
-        <span class="pill wrong">Wrong</span>
-      </div>
+      <div class="grid" id="grid"></div>
     </div>
   </div>
 

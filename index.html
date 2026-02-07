@@ -3,45 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quiz Control</title>
+  <title>Quiz Entry</title>
   <link rel="stylesheet" href="./shared.css" />
 </head>
 <body>
   <div class="container">
     <div class="topbar">
       <div class="brand">
-        <b>Quiz System</b>
-        <span>Enter <span class="kbd">Admin Code</span> / <span class="kbd">Public Code</span> or your <span class="kbd">Group #</span>.</span>
+        <b>Quiz Entry</b>
+        <span>Enter your group number</span>
       </div>
-      <span class="badge dot" id="connBadge">Static</span>
     </div>
 
     <div class="card">
-      <p class="bigQ">Enter code or group number</p>
-      <p class="small" style="margin-top:8px">
-        • Admin: enter the admin secret code → Admin Dashboard<br/>
-        • Public: enter the public secret code → Projector View<br/>
-        • Groups: enter your group number (e.g., 1)
-      </p>
-
-      <div class="row" style="margin-top:10px;">
-        <input id="entry" placeholder="ADMIN1 / PUBLIC2 / 1" />
+      <p class="bigQ">Group Number</p>
+      <div class="row" style="margin-top:12px;">
+        <input id="entry" autocomplete="off" />
         <button id="goBtn" class="ok">Continue</button>
-        <button id="clearBtn" class="secondary">Clear saved group</button>
       </div>
-      <p class="small" id="msg"></p>
-    </div>
-
-    <div class="card">
-      <b>Quick Links</b>
-      <div class="small" style="margin-top:8px;">
-        <a href="./admin.html" style="color:#cfe1ff;">Admin Dashboard</a> •
-        <a href="./public.html" style="color:#cfe1ff;">Public View</a> •
-        <a href="./group.html" style="color:#cfe1ff;">Group View</a>
-      </div>
-      <p class="small" style="margin-top:10px;">
-        Tip: For groups, you can just type the group number once—this browser will remember it.
-      </p>
+      <p class="small" id="msg" style="margin-top:10px;"></p>
     </div>
   </div>
 

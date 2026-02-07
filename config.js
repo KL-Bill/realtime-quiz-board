@@ -1,1 +1,1 @@
-window.APP_CONFIG={BACKEND_URL:"https://YOUR-TUNNEL.trycloudflare.com"};
+window.APP_CONFIG={BACKEND_URL:"https://hierarchy-donations-mistakes-beverage.trycloudflare.com"};

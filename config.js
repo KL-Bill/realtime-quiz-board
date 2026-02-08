@@ -3,6 +3,6 @@
  * Example: https://abc-def-ghi.trycloudflare.com
  */
 window.APP_CONFIG = {
-  BACKEND_URL: "https://click-promising-physics-bass.trycloudflare.com",
+  BACKEND_URL: "https://sympathy-chicken-ruth-loops.trycloudflare.com",
   MAX_GROUPS: 20
 };
